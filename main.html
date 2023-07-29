@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Management Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .task-form {
+            margin-top: 20px;
+        }
+
+        .task-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .task-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .delete-btn {
+            background-color: #f44336;
+        }
+        .task-form input[type="text"], .task-form textarea {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        .task-list {
+            margin-top: 30px;
+        }
+
+        .task-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .task-list li:hover {
+            background-color: white;
+        }
+
+        button {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Project Management Tool</h1>
+        <div class="task-form">
+            <h2>Add Task</h2>
+            <form id="addForm">
+                <label for="title">Title:</label>
+                <input type="text" id="title" required><br>
+                <label for="description">Description:</label><br>
+                <textarea id="description" required></textarea><br>
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+        <div class="task-list">
+            <h2>Task List</h2>
+            <ul id="task-list">
+                <!-- Tasks will be added here dynamically -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const titleInput = document.getElementById('title');
+            const descriptionInput = document.getElementById('description');
+            const taskList = document.getElementById('task-list');
+
+            const title = titleInput.value;
+            const description = descriptionInput.value;
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>${title}</strong><br>
+                ${description}
+                <button class="delete-btn" onclick="deleteTask(this)">Delete</button>`;
+            taskList.appendChild(li);
+
+            titleInput.value = '';
+            descriptionInput.value = '';
+        });
+
+        function deleteTask(btn) {
+            const taskItem = btn.parentNode;
+            taskItem.remove();
+        }
+
+    </script>
+</body>
+</html>
